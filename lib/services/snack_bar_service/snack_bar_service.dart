@@ -1,10 +1,6 @@
-import 'dart:math';
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:visit_counter/constants/const_colors.dart';
-import 'package:visit_counter/constants/sizes.dart';
 import 'package:visit_counter/constants/spaces.dart';
 import 'package:visit_counter/services/snack_bar_service/scaffold_messenger_key_provider.dart';
 import 'package:visit_counter/services/snack_bar_service/snack_bar_request.dart';
@@ -40,17 +36,9 @@ class SnackBarService {
 
   void _showSnackBar(SnackBarRequest request, SnackBarType type,
       {bool showIcon = false}) {
-    FlutterView view = WidgetsBinding.instance.platformDispatcher.views.first;
-    Size size = view.physicalSize / view.devicePixelRatio;
-
-    double width = min(
-      size.width,
-      Sizes.applicationMaxWidth,
-    );
     _scaffoldMessengerKey.currentState!.showSnackBar(SnackBar(
       backgroundColor: type.backgroundColor,
       behavior: SnackBarBehavior.floating,
-      width: width,
       content: Row(
         children: [
           if (showIcon)
