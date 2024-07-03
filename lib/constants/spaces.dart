@@ -19,4 +19,7 @@ class Spaces {
 
   /// 48
   static const double xxxLarge = 48;
+
+  /// 100
+  static const double superLarge = 100;
 }
