@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'package:visit_counter/constants/const_colors.dart';
-import 'package:visit_counter/services/route_service/route_service.dart';
+import 'package:visit_counter/services/navigation_service/route_provider.dart';
 import 'package:visit_counter/services/snack_bar_service/scaffold_messenger_key_provider.dart';
 
 import 'constants/strings.dart';
