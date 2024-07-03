@@ -1,5 +1,9 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'create_url_data_provider.dart';
 
 final colorsProvider = Provider<List<Color>>((ref) {
   return [
@@ -21,14 +25,39 @@ final backgroundColorsProvider = Provider<List<Color>>((ref) {
   ];
 });
 
+final colorProvider = Provider<Color>((ref) {
+  final colors = ref.watch(colorsProvider);
+  final index = ref.watch(colorsIndexProvider);
+  final randomIndex = ref.watch(randomColorIndexProvider);
+  return index >= colors.length ? colors[randomIndex] : colors[index];
+});
+
+final backgroundColorProvider = Provider<Color>((ref) {
+  final backgroundColors = ref.watch(backgroundColorsProvider);
+  final index = ref.watch(colorsIndexProvider);
+  final randomIndex = ref.watch(randomColorIndexProvider);
+  return index >= backgroundColors.length
+      ? backgroundColors[randomIndex]
+      : backgroundColors[index];
+});
+
 final colorsIndexProvider =
-    StateNotifierProvider<ColorIndex, int>((ref) => ColorIndex());
+    StateNotifierProvider<ColorIndex, int>((ref) => ColorIndex(ref));
 
 class ColorIndex extends StateNotifier<int> {
-  ColorIndex() : super(0);
+  Ref ref;
+
+  ColorIndex(this.ref) : super(0);
 
   setIndex(int index) {
     state = 0;
     state = index;
+    ref.invalidate(randomColorIndexProvider);
+    ref.invalidate(createUrlDataProvider);
   }
 }
+
+final randomColorIndexProvider = Provider<int>((ref) {
+  final colors = ref.watch(colorsProvider);
+  return Random().nextInt(colors.length);
+});
