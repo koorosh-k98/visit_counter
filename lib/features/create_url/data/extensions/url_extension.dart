@@ -4,11 +4,11 @@ typedef URL = String;
 
 extension UrlExtension on URL {
   String toMarkDown() {
-    return "[![]($this)](${Strings.webUrl})";
+    return "[![]($this)](${Strings.baseUrl})";
   }
 
   String toHTML() {
-    return '''<a href="${Strings.webUrl}">
+    return '''<a href="${Strings.baseUrl}">
   <img src="$this"/>
 </a>''';
   }
