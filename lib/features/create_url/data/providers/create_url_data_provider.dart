@@ -1,11 +1,14 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:visit_counter/core/core.dart';
 import 'package:visit_counter/features/create_url/data/create_url_repository.dart';
 
-final createUrlDataProvider = AsyncNotifierProvider<CreateUrlNotifier, String?>(
+final createUrlDataProvider =
+    AutoDisposeAsyncNotifierProvider<CreateUrlNotifier, String?>(
   () => CreateUrlNotifier(),
 );
 
-class CreateUrlNotifier extends AsyncNotifier<String?> {
+class CreateUrlNotifier extends AutoDisposeAsyncNotifier<String?> {
   @override
   String? build() => null;
 
@@ -14,6 +17,7 @@ class CreateUrlNotifier extends AsyncNotifier<String?> {
     String label,
     int iconsIndex,
     int colorsIndex,
+    ScrollController scrollController,
   ) async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() {
@@ -24,5 +28,6 @@ class CreateUrlNotifier extends AsyncNotifier<String?> {
             colorsIndex,
           );
     });
+    ref.read(scrollProvider).scrollToBottom(scrollController);
   }
 }
