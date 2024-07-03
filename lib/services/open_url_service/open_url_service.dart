@@ -1,5 +1,6 @@
 import 'dart:io';
-import 'dart:js' as js;
+import 'dart:js_interop' as js;
+import 'dart:js_interop_unsafe';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -12,7 +13,7 @@ final openUrlServiceProvider = Provider<OpenUrlService>(
 class OpenUrlService {
   Future<void> open(Uri url) async {
     if (kIsWeb) {
-      js.context.callMethod("open", [url.toString()]);
+      js.globalContext.callMethod("open".toJS, url.toString().toJS);
     } else if (Platform.isAndroid || Platform.isIOS) {
       if (await canLaunchUrl(url)) {
         await launchUrl(url);
