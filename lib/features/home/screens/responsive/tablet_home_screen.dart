@@ -81,7 +81,7 @@ class _TabletHomeScreenState extends ConsumerState<TabletHomeScreen> {
               CustomButton(
                 title: Strings.tryItNow,
                 onPressed: () =>
-                    ref.read(navigationServiceProvider).forward(AppRoute.createUrl),
+                    ref.read(navigationServiceProvider).go(AppRoute.createUrl),
               ),
               const Gap(Spaces.superLarge),
               const FAQ(),
