@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:visit_counter/core/core.dart';
 import 'package:visit_counter/features/create_url/data/create_url_repository.dart';
 
-final createUrlDataProvider = AsyncNotifierProvider<CreateUrlData, String?>(
+final createUrlDataProvider = AsyncNotifierProvider.autoDispose<CreateUrlData, String?>(
   () => CreateUrlData(),
 );
 
