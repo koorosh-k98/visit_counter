@@ -8,19 +8,25 @@ import 'package:visit_counter/services/navigation_service/app_route.dart';
 final routeProvider = Provider(
   (ref) => GoRouter(
     debugLogDiagnostics: false,
-    initialLocation: AppRoute.home.name,
+    initialLocation: AppRoute.home.path,
     routes: [
       GoRoute(
         path: AppRoute.home.path,
         name: AppRoute.home.name,
-        builder: (BuildContext context, GoRouterState state) =>
-            const HomeScreen(),
+        pageBuilder: (BuildContext context, GoRouterState state) {
+          return const NoTransitionPage(
+            child: HomeScreen(),
+          );
+        },
       ),
       GoRoute(
         path: AppRoute.createUrl.path,
         name: AppRoute.createUrl.name,
-        builder: (BuildContext context, GoRouterState state) =>
-            const CreateUrlScreen(),
+        pageBuilder: (BuildContext context, GoRouterState state) {
+          return const NoTransitionPage(
+            child: CreateUrlScreen(),
+          );
+        },
       ),
     ],
     errorBuilder: (context, state) => const MaterialApp(

@@ -26,7 +26,12 @@ class CreateUrlController {
     ScrollController scrollController,
   ) {
     ref.read(createUrlDataProvider.notifier).generateUrl(
-        username, label, iconsIndex, colorsIndex, scrollController);
+          username: username,
+          label: label,
+          iconsIndex: iconsIndex,
+          colorsIndex: colorsIndex,
+          scrollController: scrollController,
+        );
   }
 
   void generate(
@@ -45,7 +50,7 @@ class CreateUrlController {
     }
   }
 
-  onCopyButtonPressed(String url) {
+  void onCopyButtonPressed(String url) {
     Clipboard.setData(ClipboardData(text: url));
     ref.read(snackBarServiceProvider).showSuccessSnackBar(
           const SnackBarRequest(

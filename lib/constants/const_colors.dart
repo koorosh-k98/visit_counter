@@ -67,4 +67,7 @@ class ConstColors {
 
   //Preview
   static const Color previewContainerBackgroundColor = Colors.amber;
+
+  //Radio
+  static const Color radioUnselectedColor = Color(0xFF43474E);
 }

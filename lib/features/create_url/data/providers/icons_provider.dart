@@ -1,8 +1,9 @@
 import 'dart:math';
 
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:visit_counter/constants/const_colors.dart';
-import 'package:visit_counter/features/create_url/data/providers/create_url_data_provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'create_url_data_provider.dart';
 
 final iconsProvider = Provider<List<String>>((ref) {
   final hexColor = "#${ConstColors.iconsColor.value.toRadixString(16)}";
@@ -31,17 +32,27 @@ final iconProvider = Provider<String>((ref) {
       : icons[index];
 });
 
-final iconsIndexProvider =
-    StateNotifierProvider<IconIndex, int>((ref) => IconIndex(ref));
+final iconsIndexProvider = NotifierProvider<IconIndex, int>(() => IconIndex());
 
-class IconIndex extends StateNotifier<int> {
-  Ref ref;
+class IconIndex extends Notifier<int> {
+  @override
+  int build() => 0;
 
-  IconIndex(this.ref) : super(0);
-
-  setIndex(int index) {
+  void setIndex(int index) {
     state = 0;
     state = index;
     ref.invalidate(createUrlDataProvider);
   }
 }
+
+final randomIconIndexProvider = Provider<int>((ref) {
+  final icons = ref.watch(iconsProvider);
+  return Random().nextInt(icons.length);
+});
+
+final currentIconprovider = Provider<String>((ref) {
+  final icons = ref.watch(iconsProvider);
+  final index = ref.watch(iconsIndexProvider);
+  final randomIndex = ref.watch(randomIconIndexProvider);
+  return index < icons.length ? icons[index] : icons[randomIndex];
+});

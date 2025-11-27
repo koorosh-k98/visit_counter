@@ -9,6 +9,8 @@ import 'package:visit_counter/features/create_url/data/providers/colors_provider
 import 'package:visit_counter/features/create_url/data/providers/icons_provider.dart';
 import 'package:visit_counter/features/create_url/widgets/preview.dart';
 
+import 'package:visit_counter/constants/const_colors.dart';
+
 class ColorsWidget extends ConsumerWidget {
   const ColorsWidget({super.key, required this.labelText});
 
@@ -67,8 +69,13 @@ class ColorsWidget extends ConsumerWidget {
                 Radio(
                   value: colors.length,
                   groupValue: colorsIndex,
-                  onChanged: (value) =>
-                      colorsIndexNotifier.setIndex(colors.length),
+                  onChanged: null,
+                  fillColor: MaterialStateProperty.resolveWith((states) {
+                    if (states.contains(MaterialState.selected)) {
+                      return Theme.of(context).colorScheme.primary;
+                    }
+                    return ConstColors.radioUnselectedColor;
+                  }),
                 ),
                 const Text(Strings.randomColors),
               ],

@@ -12,14 +12,19 @@ const String visitCounterCollection = 'VisitCounter';
 const String usernameField = "Username";
 const String count = "Count";
 
-final createUrlDataSourceProvider = Provider<CreateUrlDataSource>(
-  (ref) => CreateUrlDataSource(db: ref.watch(firebaseDbProvider).db),
-);
+final createUrlDataSourceProvider = Provider<CreateUrlDataSource>((ref) {
+  final db = ref.watch(firebaseDbProvider).db;
+  return CreateUrlDataSource._(db: db, ref: ref);
+});
 
 class CreateUrlDataSource with FirestoreErrorMappingMixin {
-  final FirebaseFirestore _db;
+  CreateUrlDataSource._({
+    required FirebaseFirestore db,
+    required this.ref,
+  }) : _db = db;
 
-  CreateUrlDataSource({required FirebaseFirestore db}) : _db = db;
+  final FirebaseFirestore _db;
+  final Ref ref;
 
   Future<Result<FirestoreErrorResponse, String>> generateUrl(
     String username,
@@ -35,7 +40,6 @@ class CreateUrlDataSource with FirestoreErrorMappingMixin {
         colorsIndex: colorsIndex,
         count: 0,
       );
-
       final snapshot = await _db
           .collection(visitCounterCollection)
           .where(usernameField, isEqualTo: username)

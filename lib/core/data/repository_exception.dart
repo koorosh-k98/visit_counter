@@ -9,6 +9,7 @@ class RepositoryException implements Exception {
   RepositoryException({
     this.message,
     required this.errorResponse,
+    int? statusCode,
   });
 
   FirestoreErrorResponseType get firestoreErrorResponseType =>

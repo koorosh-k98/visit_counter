@@ -64,8 +64,13 @@ class IconsWidget extends ConsumerWidget {
                 Radio(
                   value: icons.length,
                   groupValue: iconsIndex,
-                  onChanged: (value) =>
-                      iconsIndexNotifier.setIndex(icons.length),
+                  onChanged: null,
+                  fillColor: MaterialStateProperty.resolveWith((states) {
+                    if (states.contains(MaterialState.selected)) {
+                      return Theme.of(context).colorScheme.primary;
+                    }
+                    return ConstColors.radioUnselectedColor;
+                  }),
                 ),
                 const Text(Strings.randomIcons),
               ],

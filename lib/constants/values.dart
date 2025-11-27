@@ -17,8 +17,8 @@ class Values {
   static const statisticsSVG = "assets/statistics.svg";
   static const scrollOffset = 150;
   static const githubUrl = "https://github.com/koorosh-k98";
-  static const linkedInUrl = "https://github.com/koorosh-k98";
-  static const xUrl = "https://github.com/koorosh-k98";
+  static const linkedInUrl = "https://www.linkedin.com/in/koorosh-karkehabadi";
+  static const xUrl = "https://x.com/Koorosh_k98";
   static const kooroshEmail = "Koorosh.k98@gmail.com";
   static final Uri emailUri = Uri(
     scheme: "mailto",

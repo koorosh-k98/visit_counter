@@ -30,7 +30,7 @@ class _MobileHomeScreenState extends ConsumerState<MobileHomeScreen> {
   final ScrollController scrollController = ScrollController();
   bool shouldShowFloatingActionButton = false;
 
-  _scrollListener() {
+  void _scrollListener() {
     var shouldShow = scrollController.position.pixels > Values.scrollOffset;
     if (shouldShow != shouldShowFloatingActionButton) {
       setState(() {
@@ -77,7 +77,7 @@ class _MobileHomeScreenState extends ConsumerState<MobileHomeScreen> {
               CustomButton(
                 title: Strings.tryItNow,
                 onPressed: () =>
-                    ref.read(navigationServiceProvider).go(AppRoute.createUrl),
+                    ref.read(navigationServiceProvider).forward(AppRoute.createUrl),
               ),
               const Gap(Spaces.superLarge),
               const FAQ(),

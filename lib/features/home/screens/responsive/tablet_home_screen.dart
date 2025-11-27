@@ -30,7 +30,7 @@ class _TabletHomeScreenState extends ConsumerState<TabletHomeScreen> {
   final ScrollController scrollController = ScrollController();
   bool shouldShowFloatingActionButton = false;
 
-  _scrollListener() {
+  void _scrollListener() {
     var shouldShow = scrollController.position.pixels > Values.scrollOffset;
     if (shouldShow != shouldShowFloatingActionButton) {
       setState(() {
@@ -81,7 +81,7 @@ class _TabletHomeScreenState extends ConsumerState<TabletHomeScreen> {
               CustomButton(
                 title: Strings.tryItNow,
                 onPressed: () =>
-                    ref.read(navigationServiceProvider).go(AppRoute.createUrl),
+                    ref.read(navigationServiceProvider).forward(AppRoute.createUrl),
               ),
               const Gap(Spaces.superLarge),
               const FAQ(),

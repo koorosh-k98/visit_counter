@@ -43,7 +43,7 @@ class _MobileCreateUrlScreenState extends ConsumerState<MobileCreateUrlScreen> {
   final ScrollController scrollController = ScrollController();
   bool shouldShowFloatingActionButton = false;
 
-  _scrollListener() {
+  void _scrollListener() {
     var shouldShow = scrollController.position.pixels > Values.scrollOffset;
     if (shouldShow != shouldShowFloatingActionButton) {
       setState(() {

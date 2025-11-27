@@ -37,7 +37,7 @@ class FirstFeaturesColumn extends ConsumerWidget {
         CustomButton(
           title: Strings.generateYourVisitCounter,
           onPressed: () =>
-              ref.read(navigationServiceProvider).go(AppRoute.createUrl),
+              ref.read(navigationServiceProvider).forward(AppRoute.createUrl),
         ),
       ],
     );

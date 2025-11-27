@@ -1,33 +1,40 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:visit_counter/core/core.dart';
 import 'package:visit_counter/features/create_url/data/create_url_repository.dart';
 
-final createUrlDataProvider =
-    AutoDisposeAsyncNotifierProvider<CreateUrlNotifier, String?>(
-  () => CreateUrlNotifier(),
+final createUrlDataProvider = AsyncNotifierProvider<CreateUrlData, String?>(
+  () => CreateUrlData(),
 );
 
-class CreateUrlNotifier extends AutoDisposeAsyncNotifier<String?> {
+class CreateUrlData extends AsyncNotifier<String?> {
   @override
-  String? build() => null;
+  Future<String?> build() async {
+    return null;
+  }
 
-  void generateUrl(
-    String username,
-    String label,
-    int iconsIndex,
-    int colorsIndex,
-    ScrollController scrollController,
-  ) async {
+  Future<void> generateUrl({
+    required String username,
+    required String label,
+    required int iconsIndex,
+    required int colorsIndex,
+    required ScrollController scrollController,
+  }) async {
     state = const AsyncLoading();
-    state = await AsyncValue.guard(() {
-      return ref.read(createUrlRepositoryProvider).generateUrl(
-            username,
-            label,
-            iconsIndex,
-            colorsIndex,
+
+    state = await AsyncValue.guard(() async {
+      final url = await ref.read(createUrlRepositoryProvider).generateUrl(
+            username: username,
+            label: label,
+            iconsIndex: iconsIndex,
+            colorsIndex: colorsIndex,
           );
+
+      if (url.isNotEmpty) {
+        ref.read(scrollProvider).scrollToBottom(scrollController);
+      }
+
+      return url;
     });
-    ref.read(scrollProvider).scrollToBottom(scrollController);
   }
 }
